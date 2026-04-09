@@ -1,0 +1,138 @@
+[gd_scene load_steps=17 format=3 uid="uid://qdydhhsj6c66"]
+
+[ext_resource type="Script" uid="uid://coo43rhvywuod" path="res://main.gd" id="1_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cwu8slrowstbk" path="res://goblin.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bxihpdbl5sc0g" path="res://player.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://c8s0gva7gn1fc" path="res://sprites/Background/bb6814e2-76b0-4adb-9a5d-ca479559e881.png" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://q5hyrr5fiwt6" path="res://sprites/StartBackground/bb6814e2-76b0-4adb-9a5d-ca479559e881.png" id="5_lquwl"]
+[ext_resource type="Texture2D" uid="uid://p6e7er8n1c0y" path="res://sprites/KeyA/225c1976-fa4b-4a6a-8a77-e7ba5cf3b138.png" id="6_efxa6"]
+[ext_resource type="Texture2D" uid="uid://kk7bb0uaacj8" path="res://sprites/KeyA/996c1217-673a-4cc9-82f4-f95b6ee890c2.png" id="7_dg77c"]
+[ext_resource type="Texture2D" uid="uid://bicb6qedoin6q" path="res://sprites/KeyS/225c1976-fa4b-4a6a-8a77-e7ba5cf3b138.png" id="8_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://curlfwp18smiu" path="res://sprites/KeyS/996c1217-673a-4cc9-82f4-f95b6ee890c2.png" id="9_w48qg"]
+[ext_resource type="Texture2D" uid="uid://c63nooe7c4rwh" path="res://sprites/KeyD/225c1976-fa4b-4a6a-8a77-e7ba5cf3b138.png" id="10_vivmo"]
+[ext_resource type="Texture2D" uid="uid://d3k3hnxye4puk" path="res://sprites/KeyD/996c1217-673a-4cc9-82f4-f95b6ee890c2.png" id="11_2cqfq"]
+
+[sub_resource type="Curve2D" id="Curve2D_7dm0k"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 88, 0, 0, 0, 0, 0, 177, 0, 0, 0, 0, 0, 177, 100, 0, 0, 0, 0, 88, 100, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0)
+}
+point_count = 7
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7mycd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_1bvp3")
+}],
+"loop": true,
+"name": &"Game",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_lquwl")
+}],
+"loop": true,
+"name": &"Start_game",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yaehf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_efxa6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_dg77c")
+}],
+"loop": true,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_074og"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_ycdy4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_w48qg")
+}],
+"loop": true,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cegan"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_vivmo")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_2cqfq")
+}],
+"loop": true,
+"name": &"pressed",
+"speed": 5.0
+}]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0xm2m")
+goblin_scene = ExtResource("2_h2yge")
+
+[node name="Player" parent="." instance=ExtResource("3_h2yge")]
+position = Vector2(88, 46)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(88, 46)
+
+[node name="GoblinPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7dm0k")
+
+[node name="GoblinSpawn" type="PathFollow2D" parent="GoblinPath"]
+
+[node name="background" type="AnimatedSprite2D" parent="."]
+z_index = -10
+position = Vector2(88, 50)
+sprite_frames = SubResource("SpriteFrames_7mycd")
+animation = &"Game"
+
+[node name="Button_A" type="AnimatedSprite2D" parent="."]
+position = Vector2(68, 68)
+sprite_frames = SubResource("SpriteFrames_yaehf")
+
+[node name="Button_S" type="AnimatedSprite2D" parent="."]
+position = Vector2(88, 68)
+sprite_frames = SubResource("SpriteFrames_074og")
+animation = &"pressed"
+
+[node name="Button_D" type="AnimatedSprite2D" parent="."]
+position = Vector2(108, 68)
+sprite_frames = SubResource("SpriteFrames_cegan")
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]

@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwu8slrowstbk"]
+
+[ext_resource type="Texture2D" uid="uid://bm0rk7h5hr6q1" path="res://sprites/EnemyIdle/5d13badb-83cd-411c-8ce0-698262947988.png" id="1_u6mjv"]
+[ext_resource type="Script" uid="uid://jcc8d5dyme5t" path="res://goblin.gd" id="1_vu5tg"]
+[ext_resource type="Texture2D" uid="uid://5vusorkwkeih" path="res://sprites/EnemyIdle/845da3d9-1b4f-4e52-bbab-9f251c4af77d.png" id="2_vu5tg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_macxp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vu5tg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_u6mjv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyhpr"]
+radius = 3.0
+height = 16.0
+
+[node name="Goblin" type="RigidBody2D"]
+collision_mask = 0
+gravity_scale = 0.0
+script = ExtResource("1_vu5tg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_macxp")
+frame_progress = 0.7105571
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_eyhpr")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-4, -8, 7, 16)
