@@ -4,33 +4,48 @@ extends Node
 var score
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	new_game()
-
+	$background.play("Start_game")
+	$Player.hide()
+	$Button_A.hide()
+	$Button_D.hide()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if Input.is_action_pressed("A"):
+func _process(delta):
+	if Input.is_action_pressed("a"):
 		$Button_A.play("pressed")
 	else:
 		$Button_A.play("default")
 		
-	if Input.is_action_pressed("S"):
+	if Input.is_action_pressed("s"):
 		$Button_S.play("pressed")
 	else:
 		$Button_S.play("default")
 		
-	if Input.is_action_pressed("D"):
+	if Input.is_action_pressed("d"):
 		$Button_D.play("pressed")
 	else:
 		$Button_D.play("default")
-
+	if Input.is_action_pressed("s") and $background.get_animation() == "Start_game":
+		$background.play("GameMenu")
+		$Button_A.show()
+		$Button_D.show()
+		$Player.show()
+	if Input.is_action_pressed("a") and $background.get_animation() == "GameMenu":
+		new_game()
+	if Input.is_action_pressed("d") and $background.get_animation() == "GameMenu":
+		get_tree().quit()
+		
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
+	$background.play("GameMenu")
+	get_tree().call_group("mobs", "queue_free")
+	
 	
 func new_game():
 	score = 0
 	$MobTimer.start()
+	$background.play("Game")
 
 
 func _on_mob_timer_timeout():

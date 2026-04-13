@@ -1,8 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cwu8slrowstbk"]
+[gd_scene load_steps=9 format=3 uid="uid://cwu8slrowstbk"]
 
 [ext_resource type="Texture2D" uid="uid://bm0rk7h5hr6q1" path="res://sprites/EnemyIdle/5d13badb-83cd-411c-8ce0-698262947988.png" id="1_u6mjv"]
 [ext_resource type="Script" uid="uid://jcc8d5dyme5t" path="res://goblin.gd" id="1_vu5tg"]
 [ext_resource type="Texture2D" uid="uid://5vusorkwkeih" path="res://sprites/EnemyIdle/845da3d9-1b4f-4e52-bbab-9f251c4af77d.png" id="2_vu5tg"]
+[ext_resource type="SpriteFrames" uid="uid://dy8wbjqfs6fly" path="res://lettersprites.tres" id="4_macxp"]
+[ext_resource type="Texture2D" uid="uid://b0r08uynsocne" path="res://sprites/EnemyHit/9e11b89b-e382-42e8-bf8a-a6d690758562.png" id="4_utad2"]
+[ext_resource type="Texture2D" uid="uid://kipugeowa6gi" path="res://sprites/EnemyHit/3344da53-2659-499d-b061-a66cb1181af4.png" id="5_3s2j4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_macxp"]
 animations = [{
@@ -16,23 +19,49 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_utad2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_3s2j4")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_eyhpr"]
 radius = 3.0
-height = 16.0
+height = 10.0
 
-[node name="Goblin" type="RigidBody2D"]
+[node name="Goblin" type="RigidBody2D" groups=["mobs"]]
 collision_mask = 0
 gravity_scale = 0.0
 script = ExtResource("1_vu5tg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_macxp")
-frame_progress = 0.7105571
+animation = &"hit"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_eyhpr")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-4, -8, 7, 16)
+
+[node name="Letter1" type="AnimatedSprite2D" parent="."]
+position = Vector2(-11, -14)
+sprite_frames = ExtResource("4_macxp")
+animation = &"a"
+
+[node name="Letter2" type="AnimatedSprite2D" parent="."]
+position = Vector2(-1, -14)
+sprite_frames = ExtResource("4_macxp")
+animation = &"a"
+
+[node name="Letter3" type="AnimatedSprite2D" parent="."]
+position = Vector2(9, -14)
+sprite_frames = ExtResource("4_macxp")
+animation = &"a"

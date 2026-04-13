@@ -1,9 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://qdydhhsj6c66"]
+[gd_scene load_steps=18 format=3 uid="uid://qdydhhsj6c66"]
 
 [ext_resource type="Script" uid="uid://coo43rhvywuod" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cwu8slrowstbk" path="res://goblin.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bxihpdbl5sc0g" path="res://player.tscn" id="3_h2yge"]
 [ext_resource type="Texture2D" uid="uid://c8s0gva7gn1fc" path="res://sprites/Background/bb6814e2-76b0-4adb-9a5d-ca479559e881.png" id="4_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://cprsxtexmykau" path="res://sprites/BackgroundMenu/bb6814e2-76b0-4adb-9a5d-ca479559e881.png" id="5_dg77c"]
 [ext_resource type="Texture2D" uid="uid://q5hyrr5fiwt6" path="res://sprites/StartBackground/bb6814e2-76b0-4adb-9a5d-ca479559e881.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://p6e7er8n1c0y" path="res://sprites/KeyA/225c1976-fa4b-4a6a-8a77-e7ba5cf3b138.png" id="6_efxa6"]
 [ext_resource type="Texture2D" uid="uid://kk7bb0uaacj8" path="res://sprites/KeyA/996c1217-673a-4cc9-82f4-f95b6ee890c2.png" id="7_dg77c"]
@@ -26,6 +27,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"Game",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_dg77c")
+}],
+"loop": true,
+"name": &"GameMenu",
 "speed": 5.0
 }, {
 "frames": [{
@@ -118,7 +127,7 @@ curve = SubResource("Curve2D_7dm0k")
 z_index = -10
 position = Vector2(88, 50)
 sprite_frames = SubResource("SpriteFrames_7mycd")
-animation = &"Game"
+animation = &"GameMenu"
 
 [node name="Button_A" type="AnimatedSprite2D" parent="."]
 position = Vector2(68, 68)
